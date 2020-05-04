@@ -7,7 +7,7 @@ dag = DAG(
     'write2hadoop',
     default_args=default_args,
     description='A simple tutorial DAG',
-    schedule_interval=timedelta(minutes=1),
+    schedule_interval=timedelta(minutes=10),
 )
 
 t1 = BashOperator(
@@ -20,8 +20,20 @@ t1 = BashOperator(
 t2 = BashOperator(
     task_id='read_file_and_write_to_hadoop',
     depends_on_past=True,
-    bash_command='hadoop jar hadoop-example-1.0-SNAPSHOT.jar com.stana.hadoop.Write2HDFS',
+    bash_command='export JAVA_HOME=/usr/local/zulu8 && bash /usr/local/airflow/hadoop-2.8.5/bin/hadoop jar /usr/local/airflow/hadoop-example-1.0-SNAPSHOT.jar com.stana.hadoop.Write2HDFS',
     dag=dag,
 )
+
+dag.doc_md = __doc__
+
+t1.doc_md = """\
+#### Task go_to_application_dir Documentation
+This is a dummy task, doing nothing but going to the folder of `/usr/local/airflow`.
+"""
+
+t2.doc_md = """\
+#### Task read_file_and_write_to_hadoop Documentation
+Executing the hadoop jar command.
+"""
 
 t1 >> t2
