@@ -7,6 +7,8 @@ In this example, all the command would operator via `MacOS` OS.
 * Python 3.6/3.7
 * [Virtualenv](https://virtualenv.pypa.io/en/stable/)
 * [Homebrew](https://brew.sh/)
+* Hadoop 2.8.x.
+* JDK 8
 
 ## Python3 Virtualenv Setup
 
@@ -38,6 +40,10 @@ Deactivate the virtualenv:
 $ deactivate
 ```
 
+## Setting worker node 
+1. Downloading th hadoop 2.8.x and setting up configuration for connecting to the target hadoop cluster.
+2. Downloading and unzipping the JDK8.
+3. Editing the t2 `bash_command` of `src/airflow/dag_from_file.py` to conform with your usage scenarios.
 
 ## Directory of this example
 
@@ -52,5 +58,3 @@ $ deactivate
     └── lib
         └── python3.7
 ```
-
-
